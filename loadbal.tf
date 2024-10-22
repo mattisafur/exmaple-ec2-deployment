@@ -2,8 +2,8 @@ resource "aws_lb" "load_balancer" {
   name = "group-test-application-alb"
 
   load_balancer_type = "application"
-  security_groups = [aws_security_group.load_balancer.id]
-  
+  security_groups    = [aws_security_group.load_balancer.id]
+
   dynamic "subnet_mapping" {
     for_each = data.aws_subnets.subnets.ids
 
