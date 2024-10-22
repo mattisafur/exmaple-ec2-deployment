@@ -30,3 +30,19 @@ resource "aws_vpc_security_group_ingress_rule" "instances_allow_http_to_load_bal
   from_port                    = 80
   to_port                      = 80
 }
+
+resource "aws_lb_target_group" "instances" {
+  name = "group-test-instances-tg"
+
+  target_type = "instance"
+
+  vpc_id = var.vpc_id
+
+  protocol = "HTTP"
+  port     = var.target_port
+}
+
+resource "aws_autoscaling_attachment" "instances" {
+  autoscaling_group_name = aws_autoscaling_group.autoscaling_group.id
+  lb_target_group_arn    = aws_lb_target_group.instances.arn
+}
