@@ -65,6 +65,6 @@ module "autoscaling" {
   target_group_arn   = module.load_balance.target_group_id
   subnet_ids         = module.vpc.subnet_ids
 
-  minimum_instances = 1
-  maximum_instances = 1
+  minimum_instances = var.minimum_instances
+  maximum_instances = var.maximum_instances
 }
