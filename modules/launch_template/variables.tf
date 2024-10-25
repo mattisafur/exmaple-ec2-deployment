@@ -16,7 +16,7 @@ variable "ami_id" {
   type = string
 }
 variable "user_data" {
-  type = string
+  type    = string
   default = ""
 }
 variable "root_volume_size" {

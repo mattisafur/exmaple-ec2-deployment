@@ -7,7 +7,7 @@ resource "aws_autoscaling_group" "autoscaling_group" {
   vpc_zone_identifier = var.subnet_ids
 
   launch_template {
-    id = var.launch_template_id
+    id      = var.launch_template_id
     version = "$Latest"
   }
 }
