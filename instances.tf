@@ -1,12 +1,28 @@
 resource "aws_launch_template" "application" {
-  image_id = "ami-06b21ccaeff8cd686"
-  user_data = base64encode(var.user_data)
+  name = "${var.app_name}-${var.environment}-lt"
+
+  image_id      = "ami-06b21ccaeff8cd686"
+  user_data     = base64encode(var.user_data)
   instance_type = "t2.micro"
 
   vpc_security_group_ids = [aws_security_group.instances.id]
+
+  tag_specifications {
+    resource_type = "instance"
+
+    tags = {
+      Name = "${var.app_name}-${var.environment}-instance"
+    }
+  }
+
+  tags = {
+    Name = "${var.app_name}-${var.environment}-lt"
+  }
 }
 
 resource "aws_autoscaling_group" "application" {
+  name = "${var.app_name}-${var.environment}-asg"
+
   min_size = 1
   max_size = 1
 

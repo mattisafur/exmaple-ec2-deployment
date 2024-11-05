@@ -1,3 +1,12 @@
+variable "app_name" {
+  description = "The application's name"
+  type        = string
+}
+variable "environment" {
+  description = "The environment's name"
+  type        = string
+}
+
 variable "num_subnets" {
   description = "Number of public and private subnets to be created. Each set of subnets is created in a separate AZ. If there are less AZs than specified, there will be one set created in each AZ."
   type        = number
@@ -13,6 +22,6 @@ variable "num_subnets" {
 
 variable "user_data" {
   description = "User Data to execute on instances at creation."
-  type = string
-  default = ""
+  type        = string
+  default     = ""
 }

@@ -1,4 +1,6 @@
 resource "aws_lb" "alb" {
+  name = "${var.app_name}-${var.environment}-alb"
+
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb.id]
 
@@ -23,6 +25,8 @@ resource "aws_lb_listener" "http_to_application" {
 }
 
 resource "aws_lb_target_group" "application_http" {
+  name = "${var.app_name}-${var.environment}-tg"
+
   vpc_id = aws_vpc.vpc.id
 
   port     = 80
