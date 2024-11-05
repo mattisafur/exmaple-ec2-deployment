@@ -5,8 +5,6 @@ resource "aws_launch_template" "application" {
   user_data     = base64encode(var.user_data)
   instance_type = "t2.micro"
 
-  vpc_security_group_ids = [aws_security_group.instances.id]
-
   tag_specifications {
     resource_type = "instance"
 
@@ -26,7 +24,7 @@ resource "aws_autoscaling_group" "application" {
   min_size = 1
   max_size = 1
 
-  vpc_zone_identifier = [aws_subnet.private.id]
+  vpc_zone_identifier = aws_subnet.private[*].id
 
   launch_template {
     id      = aws_launch_template.application.id

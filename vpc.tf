@@ -21,13 +21,15 @@ resource "aws_subnet" "public" {
   }
 }
 resource "aws_subnet" "private" {
+  count = var.num_subnets
+
   vpc_id = aws_vpc.vpc.id
 
-  availability_zone = data.aws_availability_zones.available.names[0]
-  cidr_block        = "10.0.128.0/20"
+  availability_zone = data.aws_availability_zones.available.names[count.index]
+  cidr_block        = cidrsubnet("10.0.0.0/16", 4, 8 + count.index)
 
   tags = {
-    Name = "${var.app_name}-${var.environment}-subnet-private1-${data.aws_availability_zones.available.names[0]}"
+    Name = "${var.app_name}-${var.environment}-subnet-private${count.index}-${data.aws_availability_zones.available.names[count.index]}"
   }
 }
 
