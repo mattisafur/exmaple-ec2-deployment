@@ -13,8 +13,10 @@ resource "aws_subnet" "public" {
   cidr_block        = cidrsubnet("10.0.0.0/16", 4, count.index)
 }
 resource "aws_subnet" "private" {
-  vpc_id     = aws_vpc.vpc.id
-  cidr_block = "10.0.128.0/20"
+  vpc_id = aws_vpc.vpc.id
+
+  availability_zone = data.aws_availability_zones.available.names[0]
+  cidr_block        = "10.0.128.0/20"
 }
 
 resource "aws_internet_gateway" "public_gateway" {
