@@ -21,8 +21,8 @@ resource "aws_launch_template" "application" {
 resource "aws_autoscaling_group" "application" {
   name = "${var.app_name}-${var.environment}-asg"
 
-  min_size = 1
-  max_size = 1
+  min_size = var.min_instances
+  max_size = var.max_instances
 
   vpc_zone_identifier = aws_subnet.private[*].id
 
